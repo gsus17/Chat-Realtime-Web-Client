@@ -4,6 +4,7 @@ import { MasterPageComponent } from './master-page.component';
 import { MaterialModule } from '../material/material.module';
 import { MasterPageRoutingModule } from './master-page-routing.module';
 import { ChatListModule } from '../chat-list/chat-list.module';
+import { ChatConversationModule } from '../chat-conversation/chat-conversation.module';
 
 @NgModule({
   declarations: [MasterPageComponent],
@@ -11,6 +12,7 @@ import { ChatListModule } from '../chat-list/chat-list.module';
     CommonModule,
     MasterPageRoutingModule,
     ChatListModule,
+    ChatConversationModule,
     MaterialModule
   ]
 })

@@ -1,20 +1,28 @@
-<div fxFlexFill fxLayout="column">
-  <div fxLayout="row" fxLayoutAlign="center start">
+<div fxFlexFill
+     fxLayout="column">
+  <div fxLayout="row"
+       fxLayoutAlign="center start">
     <mat-toolbar color="primary">
-      <button mat-icon-button (click)="drawer.toggle()">
+      <button mat-icon-button
+              (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
     </mat-toolbar>
   </div>
-  <mat-drawer-container fxFlex fxFlexLayout="column">
+  <mat-drawer-container fxFlex
+                        fxFlexLayout="column">
 
-    <mat-drawer #drawer class="contents" [(opened)]="openedSideBar" mode="side">
+    <mat-drawer #drawer
+                class="contents"
+                [(opened)]="openedSideBar"
+                mode="side">
       <app-chat-list></app-chat-list>
     </mat-drawer>
 
-    <mat-drawer-content fxLayout="column">
-      <div class="master-page-container">
-        <router-outlet></router-outlet>
+    <mat-drawer-content fxLayout="column"
+                        fxFlex>
+      <div class="master-page-container" fxFlex>
+        <app-chat-conversation></app-chat-conversation>
       </div>
 
     </mat-drawer-content>
