@@ -5,11 +5,8 @@
        class="message-list-container"
        fxLayoutAlign="end none">
     <div *ngFor="let item of messageList">
-      <!-- <span>{{item.message}}</span> -->
-
       <div class="message"
            [ngClass]="getClassMessage(item)">{{item.message}}</div>
-
     </div>
   </div>
   <div fxLayout="column"

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ChatService } from '../chat.service';
 
 @Component({
   selector: 'app-chat-conversation',
@@ -12,40 +13,25 @@ export class ChatConversationComponent implements OnInit {
   @Input() data: Observable<string>;
   chatId: string;
 
-  public messageList: Message[] = [
-    {
-      id: 1,
-      date: new Date(),
-      sentByMe: true,
-      message: 'Mensaje 1'
-    },
-    {
-      id: 2,
-      date: new Date(),
-      sentByMe: true,
-      message: 'Mensaje 2'
-    },
-    {
-      id: 3,
-      date: new Date(),
-      sentByMe: false,
-      message: 'Mensaje 3'
-    },
+  public messageList: Message[] = [];
 
-  ];
+  constructor(private chatService: ChatService) { }
 
   /**
    * Message to sent.
    */
   public messageToSent = '';
 
-  constructor() { }
 
   ngOnInit() {
 
     this.data.subscribe(chatId => {
       console.log(`${ChatConversationComponent.name} chatId %o`, chatId);
       this.chatId = chatId;
+
+      if (this.chatId !== '') {
+        this.getConversations();
+      }
     });
   }
 
@@ -55,13 +41,19 @@ export class ChatConversationComponent implements OnInit {
   public sendMessage() {
     console.log(`${ChatConversationComponent.name} sendMessage`);
 
-    this.messageList.push({
-      id: Math.random(),
+    this.messageList.push();
+
+    const id = this.chatService.createId();
+
+    const newMessage: Message = {
+      id: id,
+      to: this.chatId,
       date: new Date(),
       message: this.messageToSent,
       sentByMe: true
-    });
+    };
 
+    this.chatService.sendMessage(newMessage);
     this.messageToSent = '';
   }
 
@@ -72,14 +64,11 @@ export class ChatConversationComponent implements OnInit {
     return item.sentByMe ? 'to' : 'from';
   }
 
-}
-
-/**
- * Message entity.
- */
-interface Message {
-  id: number;
-  message: string;
-  sentByMe: boolean;
-  date: Date;
+  private getConversations() {
+    this.chatService.getConversationById(this.chatId)
+      .subscribe((data: any[]) => {
+        console.log('DATA %o', data);
+        this.messageList = [...data];
+      });
+  }
 }
