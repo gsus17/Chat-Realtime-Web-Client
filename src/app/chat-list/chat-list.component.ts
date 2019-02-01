@@ -12,7 +12,7 @@ export class ChatListComponent implements OnInit {
   public chatPreviewList = [];
 
   public chatIdSelected: string = null;
-  
+
   @Output() chatSelection = new EventEmitter<string>();
 
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-master-page',
@@ -10,6 +11,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 export class MasterPageComponent implements OnInit {
 
   public openedSideBar: boolean;
+
+  public chatIdSelected = new BehaviorSubject('');
 
   constructor(private router: Router,
     private breakpointObserver: BreakpointObserver) { }
@@ -46,6 +49,6 @@ export class MasterPageComponent implements OnInit {
    */
   public chatSelect(chatId: string) {
     console.log(`${MasterPageComponent.name}::chatSelection chatId %o`, chatId);
-
+    this.chatIdSelected.next(chatId);
   }
 }
