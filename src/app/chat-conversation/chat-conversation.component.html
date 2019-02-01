@@ -1,11 +1,22 @@
-<div fxFlexFill
-     fxLayout="column">
+<div fxFlexFill fxLayout="column">
 
-  <div fxLayout="column" fxFlex="90%">
-    <span>Mensajes</span>
+  <div fxLayout="column" fxFlex="90%" class="message-list-container" fxLayoutAlign="end none">
+    <div *ngFor="let item of [1,2,3,4,5,6] ; index as i">
+      <span>Mensajes {{i}}</span>
+    </div>
   </div>
-  <div fxLayout="row"
-       fxLayoutAlign="start end">
-    <span>Envio</span>
+
+  <div fxLayout="column" fxFlex="10%" class="message-to-send-container">
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex class="send-container">
+      <div fxFlex="95%">
+        <input class="message-input" type="text" fxFlex placeholder="Escribe un mensaje aqui">
+      </div>
+      <div>
+        <button mat-icon-button color="primary">
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+    </div>
   </div>
+
 </div>
