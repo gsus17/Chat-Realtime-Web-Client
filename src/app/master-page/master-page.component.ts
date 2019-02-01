@@ -40,4 +40,12 @@ export class MasterPageComponent implements OnInit {
         this.openedSideBar = true;
       });
   }
+
+  /**
+   * chatSelection
+   */
+  public chatSelect(chatId: string) {
+    console.log(`${MasterPageComponent.name}::chatSelection chatId %o`, chatId);
+
+  }
 }

@@ -16,13 +16,13 @@
                 class="contents"
                 [(opened)]="openedSideBar"
                 mode="side">
-      <app-chat-list></app-chat-list>
+      <app-chat-list (chatSelection)="chatSelect($event)"></app-chat-list>
     </mat-drawer>
 
     <mat-drawer-content fxLayout="column"
                         fxFlex>
       <div class="master-page-container" fxFlex>
-        <app-chat-conversation></app-chat-conversation>
+        <app-chat-conversation [chatId]="chatIdSelected"></app-chat-conversation>
       </div>
 
     </mat-drawer-content>
