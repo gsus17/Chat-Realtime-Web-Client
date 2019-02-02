@@ -6,7 +6,7 @@ import { ChatService } from '../chat.service';
   selector: 'app-chat-conversation',
   templateUrl: './chat-conversation.component.html',
   styleUrls: ['./chat-conversation.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class ChatConversationComponent implements OnInit {
 
