@@ -1,12 +1,11 @@
 <div fxFlex>
-  <mat-list class="mat-dense" fxFlex fxLayout="column">
+  <mat-nav-list fxFlex fxLayout="column">
 
     <div fxLayout="row" class="search-chat-container">
       <input class="search-chat-input" type="text" fxFlex placeholder="Buscar o empezar un chat nuevo..">
     </div>
 
-
-    <mat-list-item *ngFor="let item of chatPreviewList ; index as i">
+    <mat-list-item *ngFor="let item of chatPreviewList">
 
       <img [src]="item.contactAvatarLink" matListAvatar />
 
@@ -23,5 +22,5 @@
 
       <mat-divider></mat-divider>
     </mat-list-item>
-  </mat-list>
+  </mat-nav-list>
 </div>

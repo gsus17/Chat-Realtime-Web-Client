@@ -14,7 +14,7 @@
 
     <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
       <div *cdkVirtualFor="let item of messageList" class="example-item">
-        <div class="message" [ngClass]="getClassMessage(item)">{{item.message}}</div>
+        <app-message-box [message]="item.message" [sentByMe]="item.sentByMe" [date]="item.date"></app-message-box>
       </div>
     </cdk-virtual-scroll-viewport>
 
