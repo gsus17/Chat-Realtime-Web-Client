@@ -1,6 +1,6 @@
 <div fxFlexFill fxLayout="column">
   <mat-progress-bar mode="indeterminate" *ngIf="inProgress"></mat-progress-bar>
-  <div fxLayout="column" fxFlex="10%" class="message-to-send-container">
+  <div *ngIf="hasChatContact()" fxLayout="column" fxFlex="10%" class="message-to-send-container">
     <div *ngIf="hasAvatar()" fxLayout="row" fxLayoutAlign="start center" fxFlex class="send-container">
       <div fxFlex="7%">
         <img class="avatar" [src]="chatContact.contactAvatarLink" />
@@ -10,7 +10,7 @@
       </div>
     </div>
   </div>
-  <div fxLayout="column" fxFlex="80%" class="message-list-container" fxLayoutAlign="end none">
+  <div *ngIf="hasChatContact()" fxLayout="column" fxFlex="80%" class="message-list-container" fxLayoutAlign="end none">
 
     <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
       <div *cdkVirtualFor="let item of messageList" class="example-item">
@@ -19,10 +19,11 @@
     </cdk-virtual-scroll-viewport>
 
   </div>
-  <div fxLayout="column" fxFlex="10%" class="message-to-send-container">
+  <div *ngIf="hasChatContact()" fxLayout="column" fxFlex="10%" class="message-to-send-container">
     <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex class="send-container">
-      <div fxFlex="90%">
-        <input class="message-input" [(ngModel)]="messageToSent" type="text" fxFlex placeholder="Escribe un mensaje aqui">
+      <div fxFlex="95%">
+        <input (keypress)="keyPressEvent($event)" class="message-input" [(ngModel)]="messageToSent" type="text" fxFlex
+          placeholder="Escribe un mensaje aqui">
       </div>
       <div>
         <button mat-icon-button [disabled]="messageToSent === ''" (click)="sendMessage()" color="primary">

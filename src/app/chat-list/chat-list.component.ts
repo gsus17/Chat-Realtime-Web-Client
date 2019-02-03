@@ -12,6 +12,8 @@ export class ChatListComponent implements OnInit {
 
   public chatContact: string = null;
 
+  public searchFilter = '';
+
   @Output() chatSelection = new EventEmitter<string>();
 
   constructor(private chatService: ChatService) {
@@ -47,6 +49,18 @@ export class ChatListComponent implements OnInit {
 
     this.chatContact = this.chatContact !== chatContact ? chatContact : null;
     this.chatSelection.emit(this.chatContact);
+  }
+
+  /**
+   * filterList
+   */
+  public filterList() {
+    if (this.searchFilter !== undefined
+      && this.searchFilter !== ''
+      && this.searchFilter !== null) {
+
+      this.chatPreviewList = this.chatPreviewList.filter(item => item.reference === this.searchFilter);
+    }
   }
 
 }

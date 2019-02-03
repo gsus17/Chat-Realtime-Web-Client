@@ -2,7 +2,8 @@
   <mat-nav-list fxFlex fxLayout="column">
 
     <div fxLayout="row" class="search-chat-container">
-      <input class="search-chat-input" type="text" fxFlex placeholder="Buscar o empezar un chat nuevo..">
+      <input [(ngModel)]="searchFilter" (change)="filterList()" class="search-chat-input" type="text" fxFlex
+        placeholder="Buscar o empezar un chat nuevo..">
     </div>
 
     <mat-list-item *ngFor="let item of chatPreviewList">

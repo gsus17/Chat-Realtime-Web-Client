@@ -32,7 +32,7 @@ export class ChatConversationComponent implements OnInit {
       console.log(`${ChatConversationComponent.name} chatId %o`, chatContact);
       this.chatContact = chatContact;
 
-      if (this.chatContact.id !== '') {
+      if (this.hasChatContact()) {
         this.getConversations();
       }
     });
@@ -71,6 +71,23 @@ export class ChatConversationComponent implements OnInit {
     return this.chatContact !== undefined
       && this.chatContact !== null
       && this.chatContact.contactAvatarLink !== null;
+  }
+
+  /**
+   * hasChatContact
+   */
+  public hasChatContact() {
+    return this.chatContact !== null;
+  }
+
+  /**
+   * keyPressEvent
+   */
+  public keyPressEvent($event) {
+    if ($event.charCode === 13) {
+      $event.preventDefault();
+      this.sendMessage();
+    }
   }
 
   private getConversations() {
