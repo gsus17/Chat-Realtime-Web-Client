@@ -1,5 +1,4 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { ChatListService } from './chat-list.service';
 import { ChatService } from '../chat.service';
 
 @Component({
@@ -11,22 +10,25 @@ export class ChatListComponent implements OnInit {
 
   public chatPreviewList = [];
 
-  public chatIdSelected: string = null;
+  public chatContact: string = null;
 
   @Output() chatSelection = new EventEmitter<string>();
 
-
-  constructor(
-    private chatListService: ChatListService,
-    private chatService: ChatService) {
+  constructor(private chatService: ChatService) {
     console.log(`${ChatListComponent.name}::ctor`);
-
   }
 
   ngOnInit() {
-    const data = this.chatListService.getChatList();
-    console.log('Data %o', data);
-    this.chatPreviewList = data;
+    this.chatService.getConversations().subscribe(response => {
+
+      const previews = [];
+      response.forEach(x => {
+        console.log(`${ChatListComponent.name}::getConversations %o`, x.data());
+        previews.push(x.data());
+      });
+
+      this.chatPreviewList = [...previews];
+    });
   }
 
   /**
@@ -40,11 +42,11 @@ export class ChatListComponent implements OnInit {
   /**
    * OpenChat.
    */
-  public openChat(chatId) {
-    console.log(`${ChatListComponent.name}::openChat chatId %o`, chatId);
+  public openChat(chatContact) {
+    console.log(`${ChatListComponent.name}::openChat chatId %o`, chatContact);
 
-    this.chatIdSelected = this.chatIdSelected !== chatId ? chatId : null;
-    this.chatSelection.emit(this.chatIdSelected);
+    this.chatContact = this.chatContact !== chatContact ? chatContact : null;
+    this.chatSelection.emit(this.chatContact);
   }
 
 }

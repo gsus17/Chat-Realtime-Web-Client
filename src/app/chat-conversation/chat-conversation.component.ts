@@ -6,12 +6,15 @@ import { ChatService } from '../chat.service';
   selector: 'app-chat-conversation',
   templateUrl: './chat-conversation.component.html',
   styleUrls: ['./chat-conversation.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.Default,
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatConversationComponent implements OnInit {
 
-  @Input() data: Observable<string>;
-  chatId: string;
+  @Input() data: Observable<any>;
+  chatContact: any;
+
+  public inProgress = false;
 
   public messageList: Message[] = [];
 
@@ -25,11 +28,11 @@ export class ChatConversationComponent implements OnInit {
 
   ngOnInit() {
 
-    this.data.subscribe(chatId => {
-      console.log(`${ChatConversationComponent.name} chatId %o`, chatId);
-      this.chatId = chatId;
+    this.data.subscribe(chatContact => {
+      console.log(`${ChatConversationComponent.name} chatId %o`, chatContact);
+      this.chatContact = chatContact;
 
-      if (this.chatId !== '') {
+      if (this.chatContact.id !== '') {
         this.getConversations();
       }
     });
@@ -47,7 +50,7 @@ export class ChatConversationComponent implements OnInit {
 
     const newMessage: Message = {
       id: id,
-      to: this.chatId,
+      to: this.chatContact.id,
       date: new Date(),
       message: this.messageToSent,
       sentByMe: true
@@ -64,11 +67,24 @@ export class ChatConversationComponent implements OnInit {
     return item.sentByMe ? 'to' : 'from';
   }
 
+  public hasAvatar() {
+    return this.chatContact !== undefined
+      && this.chatContact !== null
+      && this.chatContact.contactAvatarLink !== null;
+  }
+
   private getConversations() {
-    this.chatService.getConversationById(this.chatId)
-      .subscribe((data: any[]) => {
-        console.log('DATA %o', data);
-        this.messageList = [...data];
+
+    this.chatService.getConversationById(this.chatContact.id)
+      .onSnapshot(res => {
+        this.inProgress = true;
+        const arr = [];
+        res.forEach((x) => {
+          arr.push(x.data());
+        });
+        this.messageList = [];
+        this.messageList = [...arr];
+        this.inProgress = false;
       });
   }
 }

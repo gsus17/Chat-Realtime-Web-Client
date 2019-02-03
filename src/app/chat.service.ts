@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { Injectable, Query } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, CollectionReference } from '@angular/fire/firestore';
 import { filter, toArray, map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
@@ -22,19 +22,28 @@ export class ChatService {
   /**
    * getConversationById
    */
-  public getConversationById(id): Observable<{}[]> {
-    this.db.collection('chats').doc(`${id}`).collection('conversations').valueChanges()
-      .subscribe((data) => {
-        console.log('DATA %o', data);
-      });
-    return this.db.collection('chats').doc(`${id}`).collection('conversations').valueChanges();
+  public getConversationById(id): CollectionReference {
+    return this.db.firestore.collection('chats');
   }
 
+  /**
+   * getConversationById
+   */
+  public getConversations(): Observable<firebase.firestore.QuerySnapshot> {
+
+    return this.db.collection('prestadores').get();
+  }
+
+  /**
+   * sendMessage
+   */
   public sendMessage(message: Message): void {
     console.log(`${ChatService.name}::sendMessage`);
-    this.db.collection('chats/')
-      .doc(`${message.to}`)
-      .collection('conversations')
-      .add(message);
+    const newId = this.createId();
+
+    message.id = newId;
+    this.db.collection('chats')
+      .doc(newId)
+      .set(message);
   }
 }

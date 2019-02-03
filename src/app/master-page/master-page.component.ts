@@ -12,7 +12,7 @@ export class MasterPageComponent implements OnInit {
 
   public openedSideBar: boolean;
 
-  public chatIdSelected = new BehaviorSubject('');
+  public chatContact = new BehaviorSubject('');
 
   constructor(private router: Router,
     private breakpointObserver: BreakpointObserver) { }
@@ -47,8 +47,8 @@ export class MasterPageComponent implements OnInit {
   /**
    * chatSelection
    */
-  public chatSelect(chatId: string) {
-    console.log(`${MasterPageComponent.name}::chatSelection chatId %o`, chatId);
-    this.chatIdSelected.next(chatId);
+  public chatSelect(chatContact: any) {
+    console.log(`${MasterPageComponent.name}::chatSelection chatId %o`, chatContact);
+    this.chatContact.next(chatContact);
   }
 }

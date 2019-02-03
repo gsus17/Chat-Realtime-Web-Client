@@ -8,11 +8,11 @@
 
     <mat-list-item *ngFor="let item of chatPreviewList ; index as i">
 
-      <img [src]="item.chat.contactAvatarLink" matListAvatar />
+      <img [src]="item.contactAvatarLink" matListAvatar />
 
-      <div fxLayout="column" fxFlex (click)="openChat(i)">
+      <div fxLayout="column" fxFlex (click)="openChat(item)">
         <div class="message-container" fxLayout="row" fxLayoutAlign="space-between center" fsxFlex>
-          <span class="mat-small"> Nombre </span>
+          <span class="mat-small"> {{item.reference}} </span>
           <span class="mat-small"> 12/03/1997 </span>
         </div>
 

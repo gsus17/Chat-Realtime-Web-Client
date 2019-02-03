@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChatListComponent } from './chat-list.component';
-import { ChatListService } from './chat-list.service';
 import { MaterialModule } from '../material/material.module';
 
 @NgModule({
@@ -10,7 +9,7 @@ import { MaterialModule } from '../material/material.module';
     CommonModule,
     MaterialModule
   ],
-  providers: [ChatListService],
+  providers: [],
   exports: [ChatListComponent]
 })
 export class ChatListModule { }

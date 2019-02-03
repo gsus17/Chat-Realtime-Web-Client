@@ -2,9 +2,26 @@ input:focus {
   outline: none;
 }
 
+.example-viewport {
+  height: 100%;
+  width: 100%;
+}
+
+.example-item-detail {
+  height: 18px;
+}
+
+.example-alternate {
+  background: rgba(127, 127, 127, 0.3);
+}
+
+.avatar {
+  border-radius: 100%;
+  height: 50px;
+}
+
 .message-list-container {
   background-color: aliceblue;
-  padding: 16px;
 }
 
 .message-to-send-container {
