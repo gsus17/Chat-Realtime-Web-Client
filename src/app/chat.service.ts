@@ -22,8 +22,8 @@ export class ChatService {
   /**
    * getConversationById
    */
-  public getConversationById(id): CollectionReference {
-    return this.db.firestore.collection('chats');
+  public getConversationById(): Observable<{}[]> {
+    return this.db.collection('chats').valueChanges();
   }
 
   /**

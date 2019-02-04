@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ChatService } from '../chat.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-chat-conversation',
@@ -18,13 +19,14 @@ export class ChatConversationComponent implements OnInit {
 
   public messageList: Message[] = [];
 
+  private conversationSubcription = null;
+
   constructor(private chatService: ChatService) { }
 
   /**
    * Message to sent.
    */
   public messageToSent = '';
-
 
   ngOnInit() {
 
@@ -77,7 +79,7 @@ export class ChatConversationComponent implements OnInit {
    * hasChatContact
    */
   public hasChatContact() {
-    return this.chatContact !== null;
+    return this.chatContact !== null && this.chatContact !== undefined;
   }
 
   /**
@@ -92,16 +94,22 @@ export class ChatConversationComponent implements OnInit {
 
   private getConversations() {
 
-    this.chatService.getConversationById(this.chatContact.id)
-      .onSnapshot(res => {
-        this.inProgress = true;
-        const arr = [];
-        res.forEach((x) => {
-          arr.push(x.data());
-        });
-        this.messageList = [];
-        this.messageList = [...arr];
+    if (this.conversationSubcription !== null) {
+      this.conversationSubcription.unsubscribe();
+    }
+
+    this.conversationSubcription = this.chatService.getConversationById()
+      .pipe(
+        map(response => response.filter((item: any) => {
+          return item.to !== undefined && item.to === this.chatContact.id;
+        }))
+      )
+      .subscribe((response: any) => {
+        console.log(`${ChatConversationComponent.name} response %o `, response);
+
+        this.messageList = [...response];
         this.inProgress = false;
       });
+
   }
 }
