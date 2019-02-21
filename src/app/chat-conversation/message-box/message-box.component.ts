@@ -16,21 +16,9 @@ export class MessageBoxComponent implements OnInit {
   @Input()
   public sentByMe: boolean;
 
-  // @Input()
-  // public status: boolean;
-
   constructor() { }
 
   ngOnInit() {
   }
 
-  public entranceSent(): boolean {
-    return this.sentByMe;
-    // return this.sentByMe && this.lastItem;
-  }
-
-  public entranceRecive(): boolean {
-    return !this.sentByMe;
-    // return !this.sentByMe && this.lastItem;
-  }
 }

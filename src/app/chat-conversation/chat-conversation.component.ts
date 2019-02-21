@@ -98,7 +98,7 @@ export class ChatConversationComponent implements OnInit {
       this.conversationSubcription.unsubscribe();
     }
 
-    this.conversationSubcription = this.chatService.getConversationById()
+    this.conversationSubcription = this.chatService.getConversationById$()
       .pipe(
         map(response => response.filter((item: any) => {
           return item.to !== undefined && item.to === this.chatContact.id;

@@ -1,6 +1,5 @@
 import { Injectable, Query } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, CollectionReference } from '@angular/fire/firestore';
-import { filter, toArray, map, tap } from 'rxjs/operators';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -22,15 +21,14 @@ export class ChatService {
   /**
    * getConversationById
    */
-  public getConversationById(): Observable<{}[]> {
+  public getConversationById$(): Observable<{}[]> {
     return this.db.collection('chats').valueChanges();
   }
 
   /**
    * getConversationById
    */
-  public getConversations(): Observable<firebase.firestore.QuerySnapshot> {
-
+  public getConversations$(): Observable<firebase.firestore.QuerySnapshot> {
     return this.db.collection('prestadores').get();
   }
 

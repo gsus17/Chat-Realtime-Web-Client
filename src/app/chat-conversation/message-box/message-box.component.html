@@ -1,23 +1,15 @@
-<div fxLayout="row" fxFlex class="layout-margin" [ngClass]="{'right':sentByMe, 'entrance-sent': entranceSent(),'entrance-recive': entranceRecive() }">
+<div fxLayout="row" fxFlex class="layout-margin" [ngClass]="{'right':sentByMe, 'entrance-sent': sentByMe,'entrance-recive': !sentByMe }">
   <div class="msg">
     <div class="tri"></div>
     <div class="msg_inner" fxLayout="column" fxFlex>
-      <div fxLayout="row" >
+      <div fxLayout="row">
         <span class="small message-text">{{message}}</span>
       </div>
 
       <div fxLayout="row" class="extra-data-message" fxLayoutAlign="space-between end" fxFlex>
         <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
-          <!-- <div *ngIf="hasServiceId()" class="service-id" [ngClass]="{'service-id-sent':sentByMe}">
-            <span class="mat-caption service-id-label">#{{serviceId}}</span>
-          </div> -->
           <div fxLayout="row" fxLayoutAlign="end center" fxFlex>
             <span *ngIf="sentByMe" class="username">{{username}}</span>
-            <!-- <span class="mat-small chat-date">{{date | date:'H:mm'}}</span> -->
-            <!-- <mat-icon *ngIf="isMessasgeSend()" class="material-icons check-icon">check</mat-icon> -->
-            <!-- <mat-icon *ngIf="isMessasgeDelivered()"
-                                 class="material-icons">done_all</mat-icon> -->
-            <!-- <mat-icon *ngIf="isMessasgeReaded()" class="material-icons check-icon readed-icon">done_all</mat-icon> -->
           </div>
         </div>
       </div>

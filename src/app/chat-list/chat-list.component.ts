@@ -21,7 +21,7 @@ export class ChatListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.chatService.getConversations().subscribe(response => {
+    this.chatService.getConversations$().subscribe(response => {
 
       const previews = [];
       response.forEach(x => {
@@ -34,15 +34,7 @@ export class ChatListComponent implements OnInit {
   }
 
   /**
-   * getChats
-   */
-  public getChats() {
-    console.log(`${ChatListComponent.name}::getChats`);
-
-  }
-
-  /**
-   * OpenChat.
+   * Open chat conversation.
    */
   public openChat(chatContact) {
     console.log(`${ChatListComponent.name}::openChat chatId %o`, chatContact);
@@ -52,7 +44,7 @@ export class ChatListComponent implements OnInit {
   }
 
   /**
-   * filterList
+   * Filter list by text.
    */
   public filterList() {
     if (this.searchFilter !== undefined
